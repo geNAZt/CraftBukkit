@@ -1,5 +1,6 @@
 package net.minecraft.server;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -927,13 +928,13 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
 
     public void a(PacketPlayInSettings packetplayinsettings) {
         this.locale = packetplayinsettings.c();
-        int i = 256 >> packetplayinsettings.d(); //CraftBukkit - View distance
+        int i = 256 >> packetplayinsettings.d();
 
         if (i > 3 && i < 15) {
             this.bV = i;
         }
 
-        this.bW = packetplayinsettings.e(); //CraftBukkit - Chat mode
+        this.bW = packetplayinsettings.e();
         this.bX = packetplayinsettings.f();
 
         CraftEventFactory.handlePlayerSettingsChangeEvent(this, this.locale, this.bW.a(), this.bV); //CraftBukkit - Call the PlayerSettingsChangeEvent
