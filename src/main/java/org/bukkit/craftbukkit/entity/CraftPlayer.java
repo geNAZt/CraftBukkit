@@ -1126,7 +1126,7 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
         collection.add(new AttributeModifiable(getHandle().bc(), (new AttributeRanged("generic.maxHealth", scaledHealth ? healthScale : getMaxHealth(), 0.0D, Float.MAX_VALUE)).a("Max Health").a(true)));
     }
 
-    public Locale getLocale() {
-        return Locale.getByCode(getHandle().locale);
+    public String getLocale() {
+        return getHandle().locale;
     }
 }
