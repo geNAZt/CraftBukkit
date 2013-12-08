@@ -29,9 +29,7 @@ import net.minecraft.server.Slot;
 import net.minecraft.server.World;
 import net.minecraft.server.WorldServer;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.Server;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.BlockState;
@@ -725,5 +723,10 @@ public class CraftEventFactory {
         PlayerLeashEntityEvent event = new PlayerLeashEntityEvent(entity.getBukkitEntity(), leashHolder.getBukkitEntity(), (Player) player.getBukkitEntity());
         entity.world.getServer().getPluginManager().callEvent(event);
         return event;
+    }
+
+    public static void handlePlayerSettingsChangeEvent(EntityPlayer player, String locale, int chatMode, int viewDistance) {
+        PlayerSettingsChangeEvent event = new PlayerSettingsChangeEvent((Player) player.getBukkitEntity(), Locale.getByCode(locale), ChatMode.getByIntMode(chatMode), viewDistance);
+        player.world.getServer().getPluginManager().callEvent(event);
     }
 }

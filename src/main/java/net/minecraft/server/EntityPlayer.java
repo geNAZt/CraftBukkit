@@ -1,22 +1,11 @@
 package net.minecraft.server;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-
 import net.minecraft.util.com.google.common.collect.Sets;
 import net.minecraft.util.com.mojang.authlib.GameProfile;
 import net.minecraft.util.io.netty.buffer.Unpooled;
 import net.minecraft.util.org.apache.commons.io.Charsets;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-// CraftBukkit start
 import org.bukkit.Bukkit;
 import org.bukkit.WeatherType;
 import org.bukkit.craftbukkit.CraftWorld;
@@ -25,12 +14,16 @@ import org.bukkit.craftbukkit.event.CraftEventFactory;
 import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
+
+import java.util.*;
+
+// CraftBukkit start
 // CraftBukkit end
 
 public class EntityPlayer extends EntityHuman implements ICrafting {
 
     private static final Logger bM = LogManager.getLogger();
-    private String locale = "en_US";
+    public String locale = "en_US"; // CraftBukkit - private -> public
     public PlayerConnection playerConnection;
     public final MinecraftServer server;
     public final PlayerInteractManager playerInteractManager;
@@ -928,14 +921,17 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
 
     public void a(PacketPlayInSettings packetplayinsettings) {
         this.locale = packetplayinsettings.c();
-        int i = 256 >> packetplayinsettings.d();
+        int i = 256 >> packetplayinsettings.d(); //CraftBukkit - View distance
 
         if (i > 3 && i < 15) {
             this.bV = i;
         }
 
-        this.bW = packetplayinsettings.e();
+        this.bW = packetplayinsettings.e(); //CraftBukkit - Chat mode
         this.bX = packetplayinsettings.f();
+
+        CraftEventFactory.handlePlayerSettingsChangeEvent(this, this.locale, this.bW.a(), this.bV); //CraftBukkit - Call the PlayerSettingsChangeEvent
+
         if (this.server.L() && this.server.K().equals(this.getName())) {
             this.server.a(packetplayinsettings.g());
         }
