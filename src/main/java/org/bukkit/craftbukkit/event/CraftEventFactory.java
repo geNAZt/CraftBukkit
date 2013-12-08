@@ -730,7 +730,20 @@ public class CraftEventFactory {
     }
 
     public static void handlePlayerSettingsChangeEvent(EntityPlayer player, String locale, int chatMode, int viewDistance) {
-        PlayerSettingsChangeEvent event = new PlayerSettingsChangeEvent((Player) player.getBukkitEntity(), Locale.getByCode(locale), ChatMode.getByIntMode(chatMode), viewDistance);
+        ChatMode chatModeEnum = ChatMode.FULL;
+
+        switch(chatMode) {
+            case 0:
+                chatModeEnum = ChatMode.FULL;
+                break;
+            case 1:
+                chatModeEnum = ChatMode.COMMAND_ONLY;
+                break;
+            case 2:
+                chatModeEnum = ChatMode.HIDDEN;
+        }
+
+        PlayerSettingsChangeEvent event = new PlayerSettingsChangeEvent((Player) player.getBukkitEntity(), Locale.getByCode(locale), chatModeEnum, viewDistance);
         player.world.getServer().getPluginManager().callEvent(event);
     }
 }
