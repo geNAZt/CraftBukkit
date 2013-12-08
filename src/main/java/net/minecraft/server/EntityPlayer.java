@@ -1,11 +1,21 @@
 package net.minecraft.server;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
 import net.minecraft.util.com.google.common.collect.Sets;
 import net.minecraft.util.com.mojang.authlib.GameProfile;
 import net.minecraft.util.io.netty.buffer.Unpooled;
 import net.minecraft.util.org.apache.commons.io.Charsets;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+// CraftBukkit start
 import org.bukkit.Bukkit;
 import org.bukkit.WeatherType;
 import org.bukkit.craftbukkit.CraftWorld;
@@ -14,10 +24,6 @@ import org.bukkit.craftbukkit.event.CraftEventFactory;
 import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
-
-import java.util.*;
-
-// CraftBukkit start
 // CraftBukkit end
 
 public class EntityPlayer extends EntityHuman implements ICrafting {
