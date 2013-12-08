@@ -31,7 +31,6 @@ import net.minecraft.server.WorldServer;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatMode;
-import org.bukkit.Locale;
 import org.bukkit.Material;
 import org.bukkit.Server;
 import org.bukkit.block.Block;
