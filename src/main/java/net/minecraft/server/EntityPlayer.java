@@ -927,17 +927,24 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     }
 
     public void a(PacketPlayInSettings packetplayinsettings) {
+        boolean settingsChanged = false; //CraftBukkit - Store a flag to see if settings changed
+        if(this.locale.equals(packetplayinsettings.c())) settingsChanged = true; //CraftBukkit - The locale has been changed -> Sent of a Event
+
         this.locale = packetplayinsettings.c();
         int i = 256 >> packetplayinsettings.d();
 
         if (i > 3 && i < 15) {
+            if(this.bV != i) settingsChanged = true; //CraftBukkit - The ViewDistance has changed -> Sent of a Event
             this.bV = i;
         }
 
+        if(!this.bW.equals(packetplayinsettings.e())) settingsChanged = true; //CraftBukkit - The ChatMode has been changed -> Sent of a Event
         this.bW = packetplayinsettings.e();
         this.bX = packetplayinsettings.f();
 
-        CraftEventFactory.handlePlayerSettingsChangeEvent(this, this.locale, this.bW.a(), this.bV); //CraftBukkit - Call the PlayerSettingsChangeEvent
+        //CraftBukkit - Sent of a PlayerSettingsChangeEvent if the Settings chaged
+        if(settingsChanged)
+            CraftEventFactory.handlePlayerSettingsChangeEvent(this, this.locale, this.bW.a(), this.bV);
 
         if (this.server.L() && this.server.K().equals(this.getName())) {
             this.server.a(packetplayinsettings.g());
