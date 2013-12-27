@@ -311,6 +311,10 @@ public abstract class MinecraftServer implements ICommandListener, Runnable, IMo
                 }
             }
         }
+
+        for (WorldServer world : this.worlds) {
+            this.server.getPluginManager().callEvent(new org.bukkit.event.world.WorldLoadEvent(world.getWorld()));
+        }
         // CraftBukkit end
         this.m();
     }
@@ -895,7 +899,7 @@ public abstract class MinecraftServer implements ICommandListener, Runnable, IMo
     }
 
     public String getServerModName() {
-        return "craftbukkit"; // CraftBukkit - cb > vanilla!
+        return server.getName(); // CraftBukkit - cb > vanilla!
     }
 
     public CrashReport b(CrashReport crashreport) {
